@@ -4,6 +4,6 @@
 
 <ul>
 <% for (let post of posts) { %>
-    <li><a href="/blog/<% post.slug %>"><% post.title %></a></li>
+    <li><% post.created_at %> <a href="/blog/<% post.slug %>"><% post.title %></a></li>
 <% } %>
 </ul>

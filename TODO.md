@@ -4,6 +4,10 @@
 - [x] HTML rendering of posts
 - [x] HTML rendering of post list
 - [ ] HTML rendering of static pages
+- [ ] JSONFeed
+- [ ] move handlers into a different .ts file
+- [ ] Docker/Nix builds
+- [ ] Make blog index not show time of created_at
 - [ ] Admin UI
   - [ ] login page
   - [ ] session token (JWT?)
