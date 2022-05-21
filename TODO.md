@@ -17,5 +17,6 @@
   - [x] edit posts
   - [x] delete posts
   - [x] create posts
+  - [ ] use a better editing component
   - [ ] site information
     - [ ] thread through to layout.html

@@ -1,9 +1,16 @@
 import { db, Drash, Marked } from "./deps.ts";
+import { authed } from "./admin.ts";
 
 export class Delete extends Drash.Resource {
     public paths = ["/admin/blog/:slug/delete"];
 
     public GET(request: Drash.Request, response: Drash.Response) {
+        if (!authed(request)) {
+            response.status = 403;
+            response.headers.set("Location", "/admin/login");
+            return response.html("<script>window.location.href='/admin/login';</script>");
+        }
+
         let slug = request.pathParam("slug");
         if (!slug) {
             response.status = 400;
@@ -23,6 +30,12 @@ export class Rescue extends Drash.Resource {
     public paths = ["/admin/blog/:slug/rescue"];
 
     public GET(request: Drash.Request, response: Drash.Response) {
+        if (!authed(request)) {
+            response.status = 403;
+            response.headers.set("Location", "/admin/login");
+            return response.html("<script>window.location.href='/admin/login';</script>");
+        }
+
         let slug = request.pathParam("slug");
         if (!slug) {
             response.status = 400;
@@ -41,7 +54,13 @@ export class Rescue extends Drash.Resource {
 export class AdminIndex extends Drash.Resource {
   public paths = ["/admin/blog"];
 
-  public GET(_request: Drash.Request, response: Drash.Response) {
+  public GET(request: Drash.Request, response: Drash.Response) {
+    if (!authed(request)) {
+        response.status = 403;
+        response.headers.set("Location", "/admin/login");
+        return response.html("<script>window.location.href='/admin/login';</script>");
+    }
+
     const posts = [];
 
     for (
@@ -94,10 +113,16 @@ export class Index extends Drash.Resource {
   }
 }
 
-export class Create extends Drash.Resource {
+export class Create extends Drash.Resource {    
   public paths = ["/admin/blog/create"];
 
   public POST(request: Drash.Request, response: Drash.Response) {
+    if (!authed(request)) {
+        response.status = 403;
+        response.headers.set("Location", "/admin/login");
+        return response.html("<script>window.location.href='/admin/login';</script>");
+    }
+
     let slug = request.bodyParam<string>("slug");
     let title = request.bodyParam<string>("title");
     let content = request.bodyParam<string>("text");
@@ -130,7 +155,13 @@ export class Create extends Drash.Resource {
     response.json({ "message": "Post updated." });
   }
 
-  public GET(_request: Drash.Request, response: Drash.Response) {
+  public GET(request: Drash.Request, response: Drash.Response) {
+    if (!authed(request)) {
+        response.status = 403;
+        response.headers.set("Location", "/admin/login");
+        return response.html("<script>window.location.href='/admin/login';</script>");
+    }
+
     const html = response.render("blog_create.html", { title: "📄🆕" }) as string;
     return response.html(html);
   }
@@ -140,6 +171,12 @@ export class PageEditor extends Drash.Resource {
   public paths = ["/admin/blog/:slug/edit"];
 
   public POST(request: Drash.Request, response: Drash.Response) {
+    if (!authed(request)) {
+        response.status = 403;
+        response.headers.set("Location", "/admin/login");
+        return response.html("<script>window.location.href='/admin/login';</script>");
+    }
+
     const slug = request.pathParam("slug");
     const title = request.bodyParam<string>("title");
     let content = request.bodyParam<string>("text");
@@ -165,6 +202,12 @@ export class PageEditor extends Drash.Resource {
   }
 
   public GET(request: Drash.Request, response: Drash.Response) {
+    if (!authed(request)) {
+        response.status = 403;
+        response.headers.set("Location", "/admin/login");
+        return response.html("<script>window.location.href='/admin/login';</script>");
+    }
+
     const slug = request.pathParam("slug");
 
     let post = undefined;

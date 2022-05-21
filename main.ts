@@ -1,4 +1,5 @@
 import { dexter, Drash, tengine } from "./deps.ts";
+import * as admin from "./admin.ts";
 import * as blog from "./blog.ts";
 
 class Files extends Drash.Resource {
@@ -55,13 +56,15 @@ class ErrorHandler extends Drash.ErrorHandler {
 }
 
 const server = new Drash.Server({
-  error_handler: ErrorHandler,
+  //error_handler: ErrorHandler,
   hostname: "0.0.0.0",
   port: 8080,
   protocol: "http",
   resources: [
     Files,
     Index,
+    admin.Login,
+    admin.Index,
     blog.Index,
     blog.Page,
     blog.PageEditor,
