@@ -8,4 +8,4 @@ Xe writes 😂 live on Twitch: https://twitch.tv/princessxen.
 
 # Installation
 
-TODO(Xe): this, like all of this.
+TODO(Xe): this

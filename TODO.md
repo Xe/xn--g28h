@@ -7,6 +7,8 @@
 - [ ] Admin UI
   - [ ] login page
   - [ ] session token (JWT?)
-  - [ ] edit posts
+  - [x] edit posts
   - [ ] delete posts
   - [ ] create posts
+  - [ ] site information
+    - [ ] thread through to layout.html
