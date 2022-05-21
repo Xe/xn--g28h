@@ -1,4 +1,5 @@
-import { Marked, dexter, db, Drash, tengine } from "./deps.ts";
+import { dexter, Drash, tengine } from "./deps.ts";
+import * as blog from "./blog.ts";
 
 class Files extends Drash.Resource {
   paths = ["/static/.*"];
@@ -9,107 +10,11 @@ class Files extends Drash.Resource {
   }
 }
 
-class BlogIndex extends Drash.Resource {
-  public paths = ["/blog"];
-
-  public GET(request: Drash.Request, response: Drash.Response) {
-    let posts = [];
-
-    for (const [title, slug, created_at] of db.query("SELECT title, slug, created_at FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC")) {
-      posts.push({
-        title,
-        slug,
-        created_at,
-      });
-    }
-
-    const html = response.render("blog_index.html", {
-        title: "Blog",
-        posts: posts,
-      }) as string;
-
-    return response.html(html);
-  }
-}
-
-class BlogPageEditor extends Drash.Resource {
-  public paths = ["/blog/:slug/edit"];
-
-  public POST(request: Drash.Request, response: Drash.Response) {
-    const slug = request.pathParam("slug");
-    const title = request.bodyParam<string>("title");
-    let content = request.bodyParam<string>("text");
-
-    if (!title) {
-      response.status = 400;
-      return response.json({"error": "Missing title"});
-    }
-    if (!content) {
-      response.status = 400;
-      return response.json({"error": "Missing content"});
-    }
-    content = content as string;
-
-    const content_html = Marked.parse(content).content;
-
-    db.query("UPDATE posts SET title = ?, content = ?, content_html = ?, updated_at = DATETIME('now') WHERE slug = ?", [title as string, content as string, content_html, slug]);
-
-    response.json({"message": "Post updated."});
-  }
-
-  public GET(request: Drash.Request, response: Drash.Response) {
-    const slug = request.pathParam("slug");
-
-    let post = undefined;
-    for (const [title, content, created_at, deleted_at] of db.query("SELECT title, content, created_at, deleted_at FROM posts WHERE slug = ?", [slug])) {
-      post = {
-        title,
-        slug,
-        content,
-        created_at,
-        deleted_at,
-      };
-    }
-
-    if (post === undefined) {
-      throw new Drash.Errors.HttpError(404, "Post not found: " + slug);
-    }
-
-    const html = response.render("blog_edit.html", post) as string;
-    return response.html(html);
-  }
-}
-
-class BlogPage extends Drash.Resource {
-  public paths = ["/blog/:slug"];
-
-  public GET(request: Drash.Request, response: Drash.Response) {
-    const slug = request.pathParam("slug");
-
-    let post = undefined;
-    for (const [title, content_html, created_at, updated_at] of db.query("SELECT title, content_html, created_at, updated_at FROM posts WHERE slug = ? AND deleted_at IS NULL", [slug])) {
-      post = {
-        title,
-        content_html,
-        created_at,
-        updated_at,
-      };
-    }
-
-    if (post === undefined) {
-      throw new Drash.Errors.HttpError(404, "Post not found: " + slug);
-    }
-
-    const html = response.render("blog_page.html", post) as string;
-    return response.html(html);
-  }
-}
-
 class Index extends Drash.Resource {
   public paths = ["/"];
 
-  public GET(request: Drash.Request, response: Drash.Response) {
-    let opts = {
+  public GET(_request: Drash.Request, response: Drash.Response) {
+    const opts = {
       title: "Home",
       content: "Welcome to my <b>website</b>!",
     };
@@ -122,7 +27,7 @@ class Index extends Drash.Resource {
 class ErrorHandler extends Drash.ErrorHandler {
   public catch(
     error: Error,
-    request: Request,
+    _request: Request,
     response: Drash.Response,
   ): void {
     // Handle all built-in Drash errors. This means any error that Drash
@@ -154,7 +59,7 @@ const server = new Drash.Server({
   hostname: "0.0.0.0",
   port: 8080,
   protocol: "http",
-  resources: [Files, Index, BlogIndex, BlogPage, BlogPageEditor],
+  resources: [Files, Index, blog.Index, blog.Page, blog.PageEditor, blog.Create, blog.AdminIndex],
   services: [tengine, dexter],
 });
 

@@ -8,6 +8,9 @@
 - [ ] move handlers into a different .ts file
 - [ ] Docker/Nix builds
 - [ ] Make blog index not show time of created_at
+- [ ] updated_at triggers for pages and posts
+- [ ] prerelease posts
+- [ ] autogen slugs
 - [ ] Admin UI
   - [ ] login page
   - [ ] session token (JWT?)

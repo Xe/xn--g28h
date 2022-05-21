@@ -1,0 +1,12 @@
+<% extends("layout.html") %>
+
+<h1><% title %></h1>
+
+<label for="title">Title: </label><input id="title" type="text" name="title" required />
+<label for="slug">URL Slug: </label><input id="slug" type="text" name="slug" required />
+
+<textarea id="editor" name="content" rows="20" cols="80"></textarea>
+
+<button id="submit" type="button">💾</button> 
+
+<script type="module" src="/static/createblog.js"></script>

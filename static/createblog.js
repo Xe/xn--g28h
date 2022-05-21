@@ -8,9 +8,9 @@ r(() => {
     const title = g("title").value;
     const slug = g("slug").value;
 
-    const resp = await fetch("/blog/" + slug + "/edit", {
+    const resp = await fetch("/admin/blog/create", {
       method: "POST",
-      body: JSON.stringify({ text, title }),
+      body: JSON.stringify({ text, title, slug }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ r(() => {
     if (resp.status != 200) {
       alert("Error: " + resp.status);
     } else {
-      window.location.href = "/blog/" + slug + "/edit";
+      window.location.href = "/admin/blog/" + slug + "/edit";
     }
   };
 });

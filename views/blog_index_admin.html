@@ -1,0 +1,11 @@
+<% extends("layout.html") %>
+
+<h1><% title %></h1>
+
+<a href="/admin/blog/create">🆕</a>
+
+<ul>
+<% for (let post of posts) { %>
+    <li><% post.created_at %> <a href="/admin/blog/<% post.slug %>/edit"><% post.title %></a> - <% if (post.deleted_at === null) { %> <a href="/admin/blog/<% post.slug %>/delete">❌</a><% } else { %><a href="/admin/blog/<% post.slug %>/rescue">🛟</a><% } %></li>
+<% } %>
+</ul>
