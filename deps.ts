@@ -50,6 +50,11 @@ CREATE TABLE IF NOT EXISTS users
   );
 `);
 
+db.query(`
+CREATE UNIQUE INDEX IF NOT EXISTS posts_slugs
+  ON posts(slug);
+`);
+
 // templates
 import { TengineService } from "https://deno.land/x/drash@v2.5.4/src/services/tengine/tengine.ts";
 

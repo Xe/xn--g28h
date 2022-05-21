@@ -1,5 +1,43 @@
 import { db, Drash, Marked } from "./deps.ts";
 
+export class Delete extends Drash.Resource {
+    public paths = ["/admin/blog/:slug/delete"];
+
+    public GET(request: Drash.Request, response: Drash.Response) {
+        let slug = request.pathParam("slug");
+        if (!slug) {
+            response.status = 400;
+            return response.text("need slug");
+        }
+        slug = slug as string;
+
+        db.query("UPDATE posts SET deleted_at=DATETIME('now') WHERE slug = ?", [slug]);
+
+        response.status = 403;
+        response.headers.set("Location", "/admin/blog");
+        return response.html("<script>window.location.href='/admin/blog';</script>");
+    }
+}
+
+export class Rescue extends Drash.Resource {
+    public paths = ["/admin/blog/:slug/rescue"];
+
+    public GET(request: Drash.Request, response: Drash.Response) {
+        let slug = request.pathParam("slug");
+        if (!slug) {
+            response.status = 400;
+            return response.text("need slug");
+        }
+        slug = slug as string;
+
+        db.query("UPDATE posts SET deleted_at=NULL WHERE slug = ?", [slug]);
+
+        response.status = 403;
+        response.headers.set("Location", "/admin/blog");
+        return response.html("<script>window.location.href='/admin/blog';</script>");
+    }
+}
+
 export class AdminIndex extends Drash.Resource {
   public paths = ["/admin/blog"];
 
@@ -176,7 +214,7 @@ export class Page extends Drash.Resource {
     }
 
     if (post === undefined) {
-      throw new Drash.Errors.HttpError(404, "Post not found: " + slug);
+      throw new Drash.Errors.HttpError(404, "Post not found or was deleted: " + slug);
     }
 
     const html = response.render("blog_page.html", post) as string;

@@ -35,7 +35,7 @@ class ErrorHandler extends Drash.ErrorHandler {
     // resource that throws Drash.Errors.HttpError will be handled here.
     if (error instanceof Drash.Errors.HttpError) {
       response.status = error.code;
-      
+
       const html = response.render("error.html", {
         title: error.message,
         error,
@@ -59,7 +59,17 @@ const server = new Drash.Server({
   hostname: "0.0.0.0",
   port: 8080,
   protocol: "http",
-  resources: [Files, Index, blog.Index, blog.Page, blog.PageEditor, blog.Create, blog.AdminIndex],
+  resources: [
+    Files,
+    Index,
+    blog.Index,
+    blog.Page,
+    blog.PageEditor,
+    blog.Create,
+    blog.AdminIndex,
+    blog.Delete,
+    blog.Rescue,
+  ],
   services: [tengine, dexter],
 });
 

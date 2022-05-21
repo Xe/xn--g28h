@@ -5,7 +5,7 @@
 - [x] HTML rendering of post list
 - [ ] HTML rendering of static pages
 - [ ] JSONFeed
-- [ ] move handlers into a different .ts file
+- [x] move handlers into a different .ts file
 - [ ] Docker/Nix builds
 - [ ] Make blog index not show time of created_at
 - [ ] updated_at triggers for pages and posts
@@ -15,7 +15,7 @@
   - [ ] login page
   - [ ] session token (JWT?)
   - [x] edit posts
-  - [ ] delete posts
-  - [ ] create posts
+  - [x] delete posts
+  - [x] create posts
   - [ ] site information
     - [ ] thread through to layout.html

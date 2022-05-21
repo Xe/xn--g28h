@@ -8,6 +8,8 @@
     <p>Deleted at: <% deleted_at %></p>
 <% } %>
 
+<a href="/blog/<% slug %>">🌐</a> <% if (deleted_at === null) { %> <a href="/admin/blog/<% slug %>/delete">❌</a><% } else { %><a href="/admin/blog/<% slug %>/rescue">🛟</a><% } %> <br />
+
 <label for="title">Title: </label><input id="title" type="text" name="title" value="<% title %>" width="100%" />
 <input hidden id="slug" type="text" name="slug" value="<% slug %>" />
 
