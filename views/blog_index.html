@@ -1,0 +1,9 @@
+<% extends("layout.html") %>
+
+<h1>Blog Index</h1>
+
+<ul>
+<% for (let post of posts) { %>
+    <li><a href="/blog/<% post.slug %>"><% post.title %></a></li>
+<% } %>
+</ul>

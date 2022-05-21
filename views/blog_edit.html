@@ -1,0 +1,20 @@
+<% extends("layout.html") %>
+
+<h1>✏️: <small><% title %></small></h1>
+
+<p>Created at: <% created_at %></p>
+
+<% if (deleted_at) { %>
+    <p>Deleted at: <% deleted_at %></p>
+<% } %>
+
+<input id="title" type="text" name="title" value="<% title %>" />
+<input hidden id="slug" type="text" name="slug" value="<% slug %>" />
+
+<textarea id="editor" name="content" rows="20" cols="80">
+<% content %>
+</textarea>
+
+<button id="submit" type="button">💾</button> 
+
+<script type="module" src="/static/editpage.js"></script>

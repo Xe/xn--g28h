@@ -1,0 +1,12 @@
+- [x] Database models for posts
+- [x] Database models for static pages
+- [x] Database models for username/password
+- [x] HTML rendering of posts
+- [x] HTML rendering of post list
+- [ ] HTML rendering of static pages
+- [ ] Admin UI
+  - [ ] login page
+  - [ ] session token (JWT?)
+  - [ ] edit posts
+  - [ ] delete posts
+  - [ ] create posts
