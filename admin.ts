@@ -32,7 +32,7 @@ export class Login extends Drash.Resource {
 
     const userCount = db.query("SELECT COUNT(*) FROM users")[0];
 
-    let pwhash = Buffer.from(
+    const pwhash = Buffer.from(
         new Uint8Array(
           await crypto.subtle.digest(
             "BLAKE3",

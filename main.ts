@@ -56,7 +56,7 @@ class ErrorHandler extends Drash.ErrorHandler {
 }
 
 const server = new Drash.Server({
-  //error_handler: ErrorHandler,
+  error_handler: ErrorHandler,
   hostname: "0.0.0.0",
   port: 8080,
   protocol: "http",
