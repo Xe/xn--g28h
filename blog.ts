@@ -1,5 +1,6 @@
-import { db, Drash, Marked } from "./deps.ts";
+import { Drash, Marked } from "./deps.ts";
 import { authed } from "./admin.ts";
+import { db } from "./db.ts";
 
 export class Delete extends Drash.Resource {
     public paths = ["/admin/blog/:slug/delete"];

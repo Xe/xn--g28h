@@ -1,5 +1,5 @@
-import { Cookie } from "https://deno.land/x/drash@v2.5.4/deps.ts";
-import { Buffer, crypto, db, Drash } from "./deps.ts";
+import { Buffer, crypto, Drash } from "./deps.ts";
+import { db } from "./db.ts";
 
 export function authed(request: Drash.Request): boolean {
   return true;
@@ -79,10 +79,12 @@ export class Index extends Drash.Resource {
 
     const posts = db.query("SELECT COUNT(*) FROM posts")[0];
     const pages = db.query("SELECT COUNT(*) FROM pages")[0];
+    const dbVersion = db.query("PRAGMA user_version")[0];
 
     const html = response.render("admin_index.html", {
       posts,
       pages,
+      dbVersion,
       title: "👷🏼‍♀️",
     }) as string;
     return response.html(html);

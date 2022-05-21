@@ -12,49 +12,6 @@ import { crypto } from "https://deno.land/std@0.140.0/crypto/mod.ts";
 import { Buffer } from "https://deno.land/std@0.140.0/node/buffer.ts";
 import * as iobuf from "https://deno.land/std@0.140.0/io/buffer.ts";
 
-const dbLoc = Deno.env.get("DATABASE_PATH");
-const db = new DB(dbLoc !== undefined ? dbLoc : "./xn--g28h.db");
-
-db.query(`
-CREATE TABLE IF NOT EXISTS posts
-  ( id INTEGER NOT NULL PRIMARY KEY
-  , title TEXT NOT NULL
-  , slug TEXT NOT NULL
-  , content TEXT NOT NULL
-  , content_html TEXT NOT NULL
-  , created_at TEXT NOT NULL
-  , updated_at TEXT
-  , deleted_at TEXT
-  , metadata TEXT
-  );
-`);
-
-db.query(`
-CREATE TABLE IF NOT EXISTS pages
-  ( id INTEGER NOT NULL PRIMARY KEY
-  , title TEXT NOT NULL
-  , slug TEXT NOT NULL
-  , content TEXT NOT NULL
-  , content_html TEXT NOT NULL
-  , created_at TEXT NOT NULL
-  , updated_at TEXT
-  , deleted_at TEXT
-  );
-`);
-
-db.query(`
-CREATE TABLE IF NOT EXISTS users
-  ( id INTEGER NOT NULL PRIMARY KEY
-  , username TEXT NOT NULL
-  , password TEXT NOT NULL
-  );
-`);
-
-db.query(`
-CREATE UNIQUE INDEX IF NOT EXISTS posts_slugs
-  ON posts(slug);
-`);
-
 // templates
 import { TengineService } from "https://deno.land/x/drash@v2.5.4/src/services/tengine/tengine.ts";
 
@@ -75,7 +32,7 @@ export {
   Buffer,
   Cache,
   crypto,
-  db,
+  DB,
   dexter,
   Drash,
   iobuf,
