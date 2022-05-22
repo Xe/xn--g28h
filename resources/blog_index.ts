@@ -20,7 +20,7 @@ export default class Index extends Drash.Resource {
     }
 
     const html = response.render("blog_index.html", {
-      title: "Blog",
+      title: "📝",
       posts: posts,
     }) as string;
 
