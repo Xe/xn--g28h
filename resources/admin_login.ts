@@ -67,6 +67,7 @@ export default class Login extends Drash.Resource {
     response.setCookie({ name: "jwt", value: jwt });
 
     response.headers.set("Location", "/admin");
+    response.status = 307;
 
     response.text("auth worked!");
   }
