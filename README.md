@@ -16,7 +16,7 @@ To install 😂 on Ubuntu, first make sure you have `git`, `curl` and `unzip` in
 
 ```
 sudo apt update
-sudo apt-get install git curl unzip
+sudo apt install git curl unzip
 ```
 
 Then, install Deno:
