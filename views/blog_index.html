@@ -7,3 +7,7 @@
     <li><% post.created_at %> <a href="/blog/<% post.slug %>"><% post.title %></a></li>
 <% } %>
 </ul>
+
+<% if (posts.length === 0) { %>
+<p>😭⏰🔜🆕</p>
+<% } %>
