@@ -65,8 +65,8 @@ export class AdminIndex extends Drash.Resource {
     const posts = [];
 
     for (
-      const [title, slug, created_at, updated_at, deleted_at] of db.query(
-        "SELECT title, slug, created_at, updated_at, deleted_at FROM posts ORDER BY created_at DESC",
+      const [title, slug, created_at, updated_at, deleted_at, public_at] of db.query(
+        "SELECT title, slug, created_at, updated_at, deleted_at, public_at FROM posts ORDER BY created_at DESC",
       )
     ) {
       posts.push({
@@ -75,6 +75,7 @@ export class AdminIndex extends Drash.Resource {
         created_at,
         updated_at,
         deleted_at,
+        public_at,
       });
     }
 
@@ -94,8 +95,8 @@ export class Index extends Drash.Resource {
     const posts = [];
 
     for (
-      const [title, slug, created_at] of db.query(
-        "SELECT title, slug, created_at FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC",
+      const [title, slug, created_at ] of db.query(
+        "SELECT title, slug, created_at FROM posts WHERE deleted_at IS NULL OR public_at < DATETIME('now') OR public_at IS NULL ORDER BY created_at DESC",
       )
     ) {
       posts.push({
@@ -245,7 +246,7 @@ export class Page extends Drash.Resource {
     let post = undefined;
     for (
       const [title, content_html, created_at, updated_at] of db.query(
-        "SELECT title, content_html, created_at, updated_at FROM posts WHERE slug = ? AND deleted_at IS NULL",
+        "SELECT title, content_html, created_at, updated_at, public_at FROM posts WHERE slug = ? AND deleted_at IS NULL",
         [slug],
       )
     ) {

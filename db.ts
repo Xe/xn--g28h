@@ -40,6 +40,9 @@ CREATE TABLE IF NOT EXISTS users
 CREATE UNIQUE INDEX IF NOT EXISTS posts_slugs
   ON posts(slug);
 `,
+`
+ALTER TABLE posts ADD COLUMN public_at TEXT;
+`
 ];
 
 const [dbVersion] = db.query("PRAGMA user_version")[0];

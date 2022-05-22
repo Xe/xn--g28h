@@ -8,7 +8,7 @@ r(() => {
     const title = g("title").value;
     const slug = g("slug").value;
 
-    const resp = await fetch("/blog/" + slug + "/edit", {
+    const resp = await fetch("/admin/blog/" + slug + "/edit", {
       method: "POST",
       body: JSON.stringify({ text, title }),
       headers: {
