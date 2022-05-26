@@ -50,6 +50,9 @@ CREATE TABLE IF NOT EXISTS jwt_secrets
   , public TEXT NOT NULL
   )
 `,
+`
+ALTER TABLE posts ADD COLUMN draft BOOLEAN default FALSE;
+`,
 ];
 
 const [dbVersion] = db.query("PRAGMA user_version")[0];

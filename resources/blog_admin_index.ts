@@ -9,8 +9,8 @@ export default class AdminIndex extends ProtectedResource {
     const posts = [];
 
     for (
-      const [title, slug, created_at, updated_at, deleted_at, public_at] of db.query(
-        "SELECT title, slug, created_at, updated_at, deleted_at, public_at FROM posts ORDER BY created_at DESC",
+      const [title, slug, created_at, updated_at, deleted_at, public_at, draft] of db.query(
+        "SELECT title, slug, created_at, updated_at, deleted_at, public_at, draft FROM posts ORDER BY created_at DESC",
       )
     ) {
       posts.push({
@@ -20,11 +20,12 @@ export default class AdminIndex extends ProtectedResource {
         updated_at,
         deleted_at,
         public_at,
+        draft,
       });
     }
 
     const html = response.render("blog_index_admin.html", {
-      title: "👷🏼‍♀️📄",
+      title: "👷🏼‍♀️📝",
       posts: posts,
     }) as string;
 

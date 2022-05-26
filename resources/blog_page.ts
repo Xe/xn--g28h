@@ -9,8 +9,8 @@ export default class Page extends Drash.Resource {
 
     let post = undefined;
     for (
-      const [title, content_html, created_at, updated_at] of db.query(
-        "SELECT title, content_html, created_at, updated_at, public_at FROM posts WHERE slug = ? AND deleted_at IS NULL",
+      const [title, content_html, created_at, updated_at, public_at, draft] of db.query(
+        "SELECT title, content_html, created_at, updated_at, public_at, draft FROM posts WHERE slug = ? AND deleted_at IS NULL",
         [slug],
       )
     ) {
@@ -19,6 +19,8 @@ export default class Page extends Drash.Resource {
         content_html,
         created_at,
         updated_at,
+        public_at,
+        draft,
       };
     }
 

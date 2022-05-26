@@ -9,7 +9,7 @@ export default class Index extends Drash.Resource {
 
     for (
       const [title, slug, created_at ] of db.query(
-        "SELECT title, slug, created_at FROM posts WHERE deleted_at IS NULL OR public_at < DATETIME('now') OR public_at IS NULL ORDER BY created_at DESC",
+        "SELECT title, slug, created_at FROM posts WHERE draft = FALSE AND deleted_at IS NULL OR public_at < DATETIME('now') ORDER BY created_at DESC",
       )
     ) {
       posts.push({

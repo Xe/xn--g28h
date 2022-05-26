@@ -1,6 +1,6 @@
 <% extends("layout.html") %>
 
-<h1><% title %></h1>
+<h1><% if (draft) { %>📄<% } else { %>📝<% } %> <% title %></h1>
 
 <small>Created at: <% created_at %> <% if (updated_at) { %><br />Updated at: <% updated_at %> <% } %></small>
 
