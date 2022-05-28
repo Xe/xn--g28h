@@ -10,8 +10,8 @@
 
 <a href="/blog/<% slug %>">🌐</a> <% if (deleted_at === null) { %> <a href="/admin/blog/<% slug %>/delete">❌</a><% } else { %><a href="/admin/blog/<% slug %>/rescue">🛟</a><% } %> <br />
 
-<label for="title">Title: </label><input id="title" type="text" name="title" value="<% title %>" width="100%" />
-<label for="draft">📄</label><input id="draft" type="checkbox" <% if (draft) { %>checked<% } %> />
+<label for="title">🪧</label><input id="title" type="text" name="title" value="<% title %>" width="100%" />
+<label for="draft">📝</label><input id="draft" type="checkbox" <% if (draft) { %>checked<% } %> />
 <input hidden id="slug" type="text" name="slug" value="<% slug %>" />
 
 <textarea id="editor" name="content" rows="20" cols="80"><% content %></textarea>

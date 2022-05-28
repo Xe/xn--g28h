@@ -25,7 +25,7 @@ export default class AdminIndex extends ProtectedResource {
     }
 
     const html = response.render("blog_index_admin.html", {
-      title: "👷🏼‍♀️📝",
+      title: "👷🏼‍♀️📄",
       posts: posts,
     }) as string;
 

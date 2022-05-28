@@ -36,7 +36,7 @@ export default class Create extends ProtectedResource {
   }
 
   public GET(_request: Drash.Request, response: Drash.Response) {
-    const html = response.render("blog_create.html", { title: "📄🆕" }) as string;
+    const html = response.render("blog_create.html", { title: "🆕📝" }) as string;
     return response.html(html);
   }
 }
